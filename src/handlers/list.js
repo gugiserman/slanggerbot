@@ -17,7 +17,7 @@ const listHandler = (context) => {
       } = slang
 
       const when = moment(new Date(date)).fromNow()
-      let entry = `<b>${keyword}</b>: ${response} | ${when} by ${first_name} `
+      let entry = `${keyword}: ${response} | ${when} by ${first_name} `
 
       if (username && username.length) {
         entry += `(@${username}) `
