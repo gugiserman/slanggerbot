@@ -1,6 +1,9 @@
+import { Slang } from '../db/schemas'
+
 const listHandler = (context) => {
-  console.log('HIT /list')
-  context.reply('under construction')
+  Slang.find().then((slangs) => {
+    context.reply(slangs)
+  })
 }
 
 export default listHandler
