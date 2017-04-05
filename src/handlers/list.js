@@ -5,6 +5,10 @@ const listHandler = (context) => {
   const { chat } = context.message
 
   Slang.find({ 'chat.id': chat.id }).then((slangs) => {
+    if (!slangs.length) {
+      context.reply('No keywords found :( See /add')
+    }
+
     const body = slangs.map((slang) => {
       const {
         keyword,
