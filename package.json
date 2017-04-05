@@ -1,0 +1,31 @@
+{
+  "name": "slanggerbot",
+  "version": "0.1.0",
+  "description": "Slack's slackbot responses for Telegram",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "./node_modules/.bin/babel src -d build --presets=latest",
+    "start": "./node_modules/.bin/babel-node src/index.js --presets=latest",
+    "test": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gugiserman/slanggerbot.git"
+  },
+  "keywords": [
+    "telegram",
+    "bot",
+    "slackbot responses"
+  ],
+  "author": "Gustavo Giserman",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gugiserman/slanggerbot/issues"
+  },
+  "homepage": "https://github.com/gugiserman/slanggerbot#readme",
+  "dependencies": {
+    "babel-cli": "^6.24.0",
+    "babel-preset-latest": "^6.24.0",
+    "telegraf": "^3.6.7"
+  }
+}
