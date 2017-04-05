@@ -1,8 +1,9 @@
 import moment from 'moment'
+import { Extra } from '../telegraf'
 import { Slang } from '../db/models'
 
 const listHandler = (context) => {
-  const { chat } = context.message
+  const { message_id, chat } = context.message
 
   Slang.find({ 'chat.id': chat.id }).then((slangs) => {
     if (!slangs.length) {
@@ -30,7 +31,7 @@ const listHandler = (context) => {
       return entry
     }).join("\n")
 
-    context.reply(body)
+    context.reply(body, Extra.inReplyTo(message_id))
   })
 }
 

@@ -1,7 +1,8 @@
+import { Extra } from '../telegraf'
 import { Slang } from '../db/models'
 
 const addHandler = (context) => {
-  const { from, chat, date, text, entities } = context.message
+  const { message_id, from, chat, date, text, entities } = context.message
   const textOffset = (entities[0].length + 1)
 
   const body = text.slice(textOffset)
@@ -19,11 +20,11 @@ const addHandler = (context) => {
 
   Slang.count({ keyword: keyword, 'chat.id': chat.id }).then((count) => {
     if (count) {
-      return context.reply(`"${keyword}" already exists. See /update`)
+      return context.reply(`"${keyword}" already exists. See /update`, Extra.inReplyTo(message_id))
     }
 
     slang.save().then(() =>
-      context.reply(`"${keyword}" saved!`)
+      context.reply(`"${keyword}" saved!`, Extra.inReplyTo(message_id))
     )
   })
 }

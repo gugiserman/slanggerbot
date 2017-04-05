@@ -2,14 +2,14 @@ import { Extra } from '../telegraf'
 import { Slang } from '../db/models'
 
 const slangHandler = (context, next) => {
-  const { id, text, chat } = context.message
+  const { message_id, text, chat } = context.message
 
   Slang.findOne({ keyword: text, 'chat.id': chat.id }).then((slang) => {
     if (!slang) {
       return next()
     }
 
-    context.reply(slang.response, Extra.inReplyTo(id))
+    context.reply(slang.response, Extra.inReplyTo(message_id))
   })
 }
 
