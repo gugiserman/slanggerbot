@@ -6,7 +6,7 @@ const addHandler = (context) => {
   const textOffset = (entities[0].length + 1)
 
   const body = text.slice(textOffset)
-  const [keyword, response] = body.split(/\s(.+)/).map((part) => part.replace(/"/g, ''))
+  const [keyword, response] = body.split(/"\s(.+)/).map((part) => part.replace(/"/g, ''))
 
   const slang = new Slang({
     keyword: keyword,
