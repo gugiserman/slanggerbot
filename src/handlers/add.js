@@ -14,6 +14,13 @@ const addHandler = (context, done) => {
   const body = text.slice(textOffset)
   const [keyword, response] = body.split(/"\s(.+)/).map((part) => part.replace(/"/g, ''))
 
+  if (!keyword.length || !response.length) {
+    return context.reply(
+      `Sorry, I can't understand your new slang :(`,
+      Extra.inReplyTo(message_id),
+    )
+  }
+
   const slang = new Slang({
     keyword: keyword,
     response: response,
