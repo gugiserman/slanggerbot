@@ -6,7 +6,7 @@ const addHandler = (context, done) => {
   const { message_id, from, chat, date, text, entities } = context.message
   const offset = entities[0].length
 
-  if (!isCommandValid(text, '/add "', offset)) {
+  if (!isCommandValid(text, '/add', offset)) {
     return done()
   }
 
