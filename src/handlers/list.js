@@ -13,7 +13,7 @@ const listHandler = (context, done) => {
     return done()
   }
 
-  Slang.find({ 'chat.id': chat.id }).then((slangs) => {
+  Slang.find({ 'chat.id': chat.id }, null, { sort: '-date' }).then((slangs) => {
     if (!slangs.length) {
       return context.reply(
         'No keywords found :( See /add',
