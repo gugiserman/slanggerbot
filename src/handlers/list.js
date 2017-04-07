@@ -13,7 +13,20 @@ const listHandler = (context, done) => {
     return done()
   }
 
-  Slang.find({ 'chat.id': chat.id }, null, { sort: '-date' }).then((slangs) => {
+  const offsetText = offset + 1
+  const search = text.slice(offsetText)
+
+  let query = {
+    'chat.id': chat.id,
+  }
+
+  if (search && search.length) {
+    query = Object.assign(query, {
+      keyword: new RegExp(`(?:^|\s)(${search})(?=\s|$)`, 'gi'),
+    })
+  }
+
+  Slang.find(query, null, { sort: '-date' }).then((slangs) => {
     if (!slangs.length) {
       return context.reply(
         'No keywords found :( See /add',
