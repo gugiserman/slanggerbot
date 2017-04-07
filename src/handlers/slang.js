@@ -9,7 +9,7 @@ const slangHandler = (context, next) => {
       return next()
     }
 
-    context.reply(
+    context.replyWithMarkdown(
       slang.response,
       Extra.inReplyTo(message_id),
     )
