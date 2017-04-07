@@ -1,9 +1,15 @@
 import moment from 'moment'
 import { Extra } from '../telegraf'
 import { Slang } from '../db/models'
+import { isCommandValid } from '../utils'
 
-const listHandler = (context) => {
-  const { message_id, chat } = context.message
+const listHandler = (context, done) => {
+  const { message_id, text, chat, entities } = context.message
+  const offset = entities[0].length
+
+  if (!isCommandValid(text, '/list', offset)) {
+    return done()
+  }
 
   Slang.find({ 'chat.id': chat.id }).then((slangs) => {
     if (!slangs.length) {

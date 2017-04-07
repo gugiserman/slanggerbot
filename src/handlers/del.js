@@ -1,9 +1,16 @@
 import { Extra } from '../telegraf'
 import { Slang } from '../db/models'
+import { isCommandValid } from '../utils'
 
-const delHandler = (context) => {
+const delHandler = (context, done) => {
   const { message_id, chat, text, entities } = context.message
-  const textOffset = (entities[0].length + 1)
+  const offset = entities[0].length
+
+  if (!isCommandValid(text, '/del', offset)) {
+    return done()
+  }
+
+  const textOffset = offset + 1
   const keyword = text.slice(textOffset)
 
   Slang.findOneAndRemove({ keyword: keyword, 'chat.id': chat.id }).then((slang) => {

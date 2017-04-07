@@ -1,10 +1,16 @@
 import { Extra } from '../telegraf'
 import { Slang } from '../db/models'
+import { isCommandValid } from '../utils'
 
-const addHandler = (context) => {
+const addHandler = (context, done) => {
   const { message_id, from, chat, date, text, entities } = context.message
-  const textOffset = (entities[0].length + 1)
+  const offset = entities[0].length
 
+  if (!isCommandValid(text, '/add "', offset)) {
+    return done()
+  }
+
+  const textOffset = offset + 1
   const body = text.slice(textOffset)
   const [keyword, response] = body.split(/"\s(.+)/).map((part) => part.replace(/"/g, ''))
 
