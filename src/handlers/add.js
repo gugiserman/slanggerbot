@@ -1,6 +1,6 @@
 import { Extra } from '../telegraf'
 import { Slang } from '../db/models'
-import { isCommandValid } from '../utils'
+import { isCommandValid, removeLineBreaks } from '../utils'
 
 const addHandler = (context, done) => {
   const { message_id, from, chat, date, text, entities } = context.message
@@ -12,7 +12,7 @@ const addHandler = (context, done) => {
 
   const textOffset = offset + 1
   const body = text.slice(textOffset)
-  const [keyword, response] = body.split(/"\s(.+)/).map((part) => part.replace(/"/g, ''))
+  const [keyword, response] = body.split(/"\s/).map((part) => part.replace(/"/g, ''))
 
   if (!keyword.length || !response.length) {
     return context.reply(
@@ -22,8 +22,8 @@ const addHandler = (context, done) => {
   }
 
   const slang = new Slang({
-    keyword: keyword,
-    response: response,
+    keyword: removeLineBreaks(keyword),
+    response: removeLineBreaks(response),
     author: from,
     chat: chat,
     lastUpdate: {
