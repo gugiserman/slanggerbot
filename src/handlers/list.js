@@ -15,7 +15,10 @@ const listHandler = (context, done) => {
 
   Slang.find({ 'chat.id': chat.id }).then((slangs) => {
     if (!slangs.length) {
-      context.reply('No keywords found :( See /add', Extra.inReplyTo(message_id))
+      return context.reply(
+        'No keywords found :( See /add',
+        Extra.inReplyTo(message_id),
+      )
     }
 
     const body = slangs.map((slang) => {
@@ -42,7 +45,6 @@ const listHandler = (context, done) => {
     let chunks = []
     const replies = []
 
-    // (/.{10}\n/g, "$&@").split(/\s+@/)
     body.forEach((entry, index) => {
       let chunk = entry
 

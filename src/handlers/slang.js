@@ -5,11 +5,14 @@ const slangHandler = (context, next) => {
   const { message_id, text, chat } = context.message
 
   Slang.findOne({ keyword: text, 'chat.id': chat.id }).then((slang) => {
-    if (!slang) {
+    if (!slang || !slang.length) {
       return next()
     }
 
-    context.reply(slang.response, Extra.inReplyTo(message_id))
+    context.reply(
+      slang.response,
+      Extra.inReplyTo(message_id),
+    )
   })
 }
 

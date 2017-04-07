@@ -15,10 +15,16 @@ const delHandler = (context, done) => {
 
   Slang.findOneAndRemove({ keyword: keyword, 'chat.id': chat.id }).then((slang) => {
     if (!slang) {
-      return context.reply(`"${keyword}" not found :(`, Extra.inReplyTo(message_id))
+      return context.reply(
+        `"${keyword}" not found :(`,
+        Extra.inReplyTo(message_id),
+      )
     }
 
-    context.reply(`"${keyword}" deleted!`, Extra.inReplyTo(message_id))
+    context.reply(
+      `"${keyword}" deleted!`,
+      Extra.inReplyTo(message_id),
+    )
   })
 }
 

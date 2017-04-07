@@ -26,11 +26,17 @@ const addHandler = (context, done) => {
 
   Slang.count({ keyword: keyword, 'chat.id': chat.id }).then((count) => {
     if (count) {
-      return context.reply(`"${keyword}" already exists. See /update`, Extra.inReplyTo(message_id))
+      return context.reply(
+        `"${keyword}" already exists. See /update`,
+        Extra.inReplyTo(message_id),
+      )
     }
 
     slang.save().then(() =>
-      context.reply(`"${keyword}" saved!`, Extra.inReplyTo(message_id))
+      context.reply(
+        `"${keyword}" saved!`,
+        Extra.inReplyTo(message_id),
+      )
     )
   })
 }
