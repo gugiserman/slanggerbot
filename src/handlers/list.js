@@ -8,8 +8,9 @@ const TELEGRAM_CHAR_CAP = 4096
 const listHandler = (context, done) => {
   const { message_id, text, chat, entities } = context.message
   const offset = entities[0].length
+  const expectedCommand = '/list'
 
-  if (!isCommandValid(text, '/list', offset)) {
+  if (!isCommandValid(text, expectedCommand, expectedCommand.length)) {
     return done()
   }
 
