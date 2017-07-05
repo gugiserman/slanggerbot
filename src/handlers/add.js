@@ -40,6 +40,7 @@ const addHandler = (context, done) => {
     }
 
     Slang.find({ 'author.id': from.id, 'chat.id': chat.id }).then(userSlangs => {
+      console.log('====> userSlangs ===>', userSlangs)
       if (userSlangs && userSlangs.length >= 3) {
         const userSlangsKeywords = userSlangs.map(userSlang => `<b>${userSlang.keyword}</b>`)
 
