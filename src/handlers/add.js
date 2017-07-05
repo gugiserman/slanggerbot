@@ -39,12 +39,25 @@ const addHandler = (context, done) => {
       )
     }
 
-    slang.save().then(() =>
-      context.reply(
-        `"${keyword}" saved!`,
-        Extra.inReplyTo(message_id),
+    Slang.find({ 'author.id': from.id, 'chat.id': chat.id }).then(userSlangs => {
+      if (userSlangs && userSlangs.length >= 3) {
+        const userSlangsKeywords = userSlangs.map(userSlang => `<b>${userSlang.keyword}</b>`)
+
+        return context.replyWithHTML(`
+          You can only have up to 3 slangs.
+          Your slangs:
+          ${userSlangKeywords.join(', ')}.
+        `)
+      }
+
+      slang.save().then(() =>
+        context.reply(
+          `"${keyword}" saved!`,
+          Extra.inReplyTo(message_id),
+        )
       )
-    )
+
+    })
   })
 }
 
