@@ -40,15 +40,17 @@ const addHandler = (context, done) => {
     }
 
     Slang.find({ 'author.id': from.id, 'chat.id': chat.id }).then(userSlangs => {
-      console.log('====> userSlangs ===>', userSlangs)
       if (userSlangs && userSlangs.length >= 3) {
         const userSlangsKeywords = userSlangs.map(userSlang => `<b>${userSlang.keyword}</b>`)
+        const limitResponse = [
+          'You can only have up to 3 slangs.',
+          'Your slangs:',
+          `${userSlangsKeywords.join(', ')}.`
+        ]
 
-        return context.replyWithHTML(`
-          You can only have up to 3 slangs.
-          Your slangs:
-          ${userSlangKeywords.join(', ')}.
-        `)
+        return context.replyWithHTML(
+          limitResponse.join('\n')
+        )
       }
 
       slang.save().then(() =>
